@@ -1,0 +1,35 @@
+<html>
+	<head>
+		<style type="text/css">
+
+			div.hebcal-container {
+			 font-family: "Gill Sans MT","Gill Sans",GillSans,Arial,Helvetica,sans-serif;
+			 font-size: small;
+			}
+			div.hebcal-container div h3 {
+			 font-family: Georgia,Palatino,"Times New Roman",Times,serif;
+			}
+			div.hebcal-container div ul.hebcal-results { list-style-type:none }
+			div.hebcal-container div ul.hebcal-results li {
+				margin-bottom: 11px;
+				font-size: 21px;
+				font-weight: 200;
+				line-height: normal;
+			}
+			div.hebcal-container div div.hebcal-results .candles { color: red; font-size: large }
+			div.hebcal-container div div.hebcal-results .havdalah { color: green }
+			div.hebcal-container div div.hebcal-results .parashat { color: black; background: #ff9 }
+			div.hebcal-container div div.hebcal-results .holiday { display: none }
+		</style>
+	</head>
+	<body>
+		<div id="hebcal-shabbat"></div>
+		<script>
+		fetch('https://www.hebcal.com/shabbat?cfg=i2&geonameid=3469058&ue=off&b=18&M=on&lg=pt&tgt=_top')
+			.then(response => response.text())
+			.then(data => document.getElementById('hebcal-shabbat').innerHTML = data);
+		</script>
+		
+	</body>
+	
+</html>
