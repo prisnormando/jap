@@ -1,0 +1,75 @@
+<html>
+	<head>
+		
+	</head>
+	<body>
+		<div>
+			<script src="https://www.hebcal.com/etc/hdate-he.js" crossorigin="anonymous">
+			</script></br>
+			<script src="https://www.hebcal.com/etc/hdate-en.js" crossorigin="anonymous">
+			</script><br>
+		</div>
+		<div>
+			<form method="post" action="https://www.hebcal.com/yahrzeit">
+				<input type="hidden" name="ref_url" value="http://www.tbala.org">
+				<input type="hidden" name="ref_text" value="Temple Beth Am">
+				<select name="t1" class="form-control">
+					<option selected value="Yahrzeit">Yahrzeit</option>
+					<option value="Birthday">Birthday</option>
+					<option value="Anniversary">Anniversary</option>
+					<option value="Other">Other</option>
+				</select>
+				<div class="form-group">
+					<label for="m1">Month</label>
+					<select name="m1" id="m1" class="form-control">
+						<option selected value="1">January</option>
+						<option value="2">February</option>
+						<option value="3">March</option>
+						<option value="4">April</option>
+						<option value="5">May</option>
+						<option value="6">June</option>
+						<option value="7">July</option>
+						<option value="8">August</option>
+						<option value="9">September</option>
+						<option value="10">October</option>
+						<option value="11">November</option>
+						<option value="12">December</option>
+					</select>
+				</div>
+				<div class="form-group">
+					<label for="d1">Day</label>
+					<input type="text" name="d1" id="d1" size="2" maxlength="2" class="form-control">
+				</div>
+				<div class="form-group">
+					<label for="y1">Year</label>
+					<input type="text" name="y1" id="y1" size="4" maxlength="4" class="form-control">
+				</div>
+				<div class="form-group">
+					<label for="n1">Name</label>
+					<input type="text" name="n1" id="n1" class="form-control">
+				</div>
+				<div class="checkbox">
+					<label>
+						<input type="checkbox" name="s1"> After sunset
+					</label>
+				</div>
+				<div class="checkbox">
+					<label>
+						<input type="checkbox" name="hebdate" checked> Include Hebrew dates
+					</label>
+				</div>
+				<div class="checkbox">
+					<label>
+						<input type="checkbox" name="yizkor"> Include Yizkor dates
+					</label>
+				</div>
+				<div class="form-group">
+					<label for="years">Number of years</label>
+					<input type="text" name="years" id="years" value="20" size="2" maxlength="2" class="form-control">
+				</div>
+
+			</form>
+
+		</div>
+	</body>
+</html>
