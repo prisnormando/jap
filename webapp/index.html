@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+		<title>Conversor de Datas</title>
+</head>
+<body>
+		<h1>Conversor de Datas</h1>
+
+		<form method="post">
+				<h2>Gregoriano para Hebraico:</h2>
+				<label for="gregorian_date">Data Gregoriana (AAAA-MM-DD):</label>
+				<input type="text" id="gregorian_date" name="gregorian_date"><br><br>
+				<input type="submit" value="Converter">
+		</form>
+
+		<form method="post">
+				<h2>Hebraico para Gregoriano:</h2>
+				<label for="hebrew_year">Ano Hebraico:</label>
+				<input type="text" id="hebrew_year" name="hebrew_year"><br><br>
+				<label for="hebrew_month">Mês Hebraico:</label>
+				<input type="text" id="hebrew_month" name="hebrew_month"><br><br>
+				<label for="hebrew_day">Dia Hebraico:</label>
+				<input type="text" id="hebrew_day" name="hebrew_day"><br><br>
+				<input type="submit" value="Converter">
+		</form>
+
+		{% if result %}
+				<h2>Resultado:</h2>
+				<pre>{{ result | tojson }}</pre> 
+		{% endif %}
+</body>
+</html>
