@@ -44,3 +44,29 @@ class DateConverter:
 												result = {'error': 'Data hebraica inválida'}
 
 						return render_template('index.html', result=result)
+def get_hebcal_events(self, start_date, end_date, geonameid="3448439", tzid="America/Sao_Paulo"):
+	url = f"https://www.hebcal.com/hebcal?v=1&cfg=json&maj=on&min=on&mod=on&nx=on&c=on&geo=geoname&geonameid={geonameid}&M=on&s=on"
+	url += f"&start={start_date}&end={end_date}&tzid={tzid}"
+	response = requests.get(url)
+	response.raise_for_status()
+	data = response.json()
+	return data
+
+def register_routes(self, app):
+	# ... (suas rotas existentes) ...
+
+	@app.route('/hebcal', methods=['GET', 'POST'])
+	def hebcal_events():
+			events = None
+			if request.method == 'POST':
+					start_date = request.form['start_date']
+					end_date = request.form['end_date']
+					geonameid = request.form.get('geonameid', "3448439") # Default para São Paulo
+					tzid = request.form.get('tzid', "America/Sao_Paulo")
+
+					try:
+							events = self.get_hebcal_events(start_date, end_date, geonameid, tzid)
+					except requests.exceptions.RequestException as e:
+							events = {'error': f"Erro na requisição: {e}"}
+
+			return render_template('hebcal.html', events=events)

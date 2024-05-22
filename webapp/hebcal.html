@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+		<title>Eventos do Calendário Hebcal</title>
+</head>
+<body>
+		<h1>Eventos do Calendário Hebcal</h1>
+
+		<form method="post">
+				<label for="start_date">Data de Início (AAAA-MM-DD):</label>
+				<input type="text" id="start_date" name="start_date"><br><br>
+				<label for="end_date">Data de Fim (AAAA-MM-DD):</label>
+				<input type="text" id="end_date" name="end_date"><br><br>
+				<label for="geonameid">GeoNames ID (opcional):</label>
+				<input type="text" id="geonameid" name="geonameid" value="3448439"><br><br>
+				<label for="tzid">Timezone ID (opcional):</label>
+				<input type="text" id="tzid" name="tzid" value="America/Sao_Paulo"><br><br>
+				<input type="submit" value="Buscar Eventos">
+		</form>
+
+		{% if events %}
+				<h2>Eventos:</h2>
+				<ul>
+				{% for item in events['items'] %}
+						<li>
+								<h3>{{ item['title'] }}</h3>
+								<p>Data: {{ item['date'] }}</p>
+								{% if 'hdate' in item %}
+										<p>Data Hebraica: {{ item['hdate'] }}</p>
+								{% endif %}
+								{% if 'memo' in item %}
+										<p>Observação: {{ item['memo'] }}</p>
+								{% endif %}
+						</li>
+				{% endfor %}
+				</ul>
+		{% endif %}
+</body>
+</html>
