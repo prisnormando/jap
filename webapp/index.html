@@ -23,10 +23,14 @@
 				<input type="text" id="hebrew_day" name="hebrew_day"><br><br>
 				<input type="submit" value="Converter">
 		</form>
-
+	
 		{% if result %}
 				<h2>Resultado:</h2>
 				<pre>{{ result | tojson }}</pre> 
 		{% endif %}
+
+
+		<a href="/leyning">Leituras da Torá</a>
+
 </body>
 </html>

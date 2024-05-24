@@ -70,3 +70,36 @@ def register_routes(self, app):
 							events = {'error': f"Erro na requisição: {e}"}
 
 			return render_template('hebcal.html', events=events)
+import requests
+import json
+
+
+class DateConverter:
+		# ... (suas funções de conversão e get_hebcal_events existentes) ...
+
+		def get_leyning(self, start_date, end_date, diaspora=True):
+				url = f"https://www.hebcal.com/leyning?cfg=json&start={start_date}&end={end_date}"
+				if not diaspora:
+						url += "&i=on"  # Para Israel, adicione i=on
+				response = requests.get(url)
+				response.raise_for_status()
+				data = response.json()
+				return data
+
+		def register_routes(self, app):
+				# ... (suas rotas existentes) ...
+
+				@app.route('/leyning', methods=['GET', 'POST'])
+				def leyning_readings():
+						leyning = None
+						if request.method == 'POST':
+								start_date = request.form['start_date']
+								end_date = request.form['end_date']
+								diaspora = 'diaspora' in request.form  # Verifica se a opção "Diáspora" está marcada
+
+								try:
+										leyning = self.get_leyning(start_date, end_date, diaspora)
+								except requests.exceptions.RequestException as e:
+										leyning = {'error': f"Erro na requisição: {e}"}
+
+						return render_template('leyning.html', leyning=leyning)

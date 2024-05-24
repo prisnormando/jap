@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+		<title>Leituras da Torá</title>
+</head>
+<body>
+		<h1>Leituras da Torá</h1>
+
+		<form method="post">
+				<label for="start_date">Data de Início (AAAA-MM-DD):</label>
+				<input type="text" id="start_date" name="start_date"><br><br>
+				<label for="end_date">Data de Fim (AAAA-MM-DD):</label>
+				<input type="text" id="end_date" name="end_date"><br><br>
+				<input type="checkbox" id="diaspora" name="diaspora" checked>
+				<label for="diaspora">Diáspora</label><br><br>
+				<input type="submit" value="Buscar Leituras">
+		</form>
+
+		{% if leyning %}
+				<h2>Leituras:</h2>
+				<ul>
+				{% for item in leyning['items'] %}
+						<li>
+								<h3>{{ item['name']['en'] }} ({{ item['name']['he'] }})</h3>
+								<p>Data: {{ item['date'] }}</p>
+								<p>Data Hebraica: {{ item['hdate'] }}</p>
+								{% if 'summary' in item %}
+										<p>Resumo: {{ item['summary'] }}</p>
+								{% endif %}
+								</li>
+				{% endfor %}
+				</ul>
+		{% endif %}
+</body>
+</html>
