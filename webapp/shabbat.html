@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+		<title>Horários do Shabat</title>
+</head>
+<body>
+		<h1>Horários do Shabat</h1>
+
+		<form method="post">
+				<label for="geonameid">GeoNames ID (opcional):</label>
+				<input type="text" id="geonameid" name="geonameid" value="3448439"><br><br>
+				<label for="havdalah_type">Tipo de Havdalah:</label>
+				<select id="havdalah_type" name="havdalah_type">
+						<option value="on">M=on (padrão)</option>
+						<option value="50">m=50 (50 minutos após o pôr do sol)</option>
+						<option value="0">m=0 (sem Havdalah)</option>
+				</select><br><br>
+				<input type="submit" value="Buscar Horários">
+		</form>
+
+		{% if shabbat_info %}
+				<h2>Informações do Shabat:</h2>
+				<ul>
+				{% for item in shabbat_info['items'] %}
+						<li>
+								<h3>{{ item['title'] }}</h3>
+								<p>Data: {{ item['date'] }}</p>
+								{% if 'hdate' in item %}
+										<p>Data Hebraica: {{ item['hdate'] }}</p>
+								{% endif %}
+								{% if 'memo' in item %}
+										<p>Observação: {{ item['memo'] }}</p>
+								{% endif %}
+						</li>
+				{% endfor %}
+				</ul>
+		{% endif %}
+</body>
+</html>

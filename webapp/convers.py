@@ -103,3 +103,33 @@ class DateConverter:
 										leyning = {'error': f"Erro na requisição: {e}"}
 
 						return render_template('leyning.html', leyning=leyning)
+import requests
+import json
+
+
+class DateConverter:
+		# ... (suas funções de conversão, get_hebcal_events e get_leyning existentes) ...
+
+		def get_shabbat_times(self, geonameid="3448439", m="on"):
+				url = f"https://www.hebcal.com/shabbat?cfg=json&geonameid={geonameid}&M={m}"
+				response = requests.get(url)
+				response.raise_for_status()
+				data = response.json()
+				return data
+
+		def register_routes(self, app):
+				# ... (suas rotas existentes) ...
+
+				@app.route('/shabbat', methods=['GET', 'POST'])
+				def shabbat_times():
+						shabbat_info = None
+						if request.method == 'POST':
+								geonameid = request.form.get('geonameid', "3448439")  # Default para São Paulo
+								m = request.form.get('havdalah_type', "on")  # Tipo de Havdalah (padrão: M=on)
+
+								try:
+										shabbat_info = self.get_shabbat_times(geonameid, m)
+								except requests.exceptions.RequestException as e:
+										shabbat_info = {'error': f"Erro na requisição: {e}"}
+
+						return render_template('shabbat.html', shabbat_info=shabbat_info)
