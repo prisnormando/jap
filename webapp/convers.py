@@ -133,3 +133,49 @@ class DateConverter:
 										shabbat_info = {'error': f"Erro na requisição: {e}"}
 
 						return render_template('shabbat.html', shabbat_info=shabbat_info)
+import requests
+import json
+
+class DateConverter:
+		# ... (suas funções existentes) ...
+
+		def get_yahrzeits(self, events_data):
+				url = "https://www.hebcal.com/yahrzeit"
+				headers = {'Content-Type': 'application/x-www-form-urlencoded'}
+				data = {
+						'cfg': 'json',
+						'v': 'yahrzeit',
+						'years': '3',  # Número de anos a serem retornados (pode ser ajustado)
+						'hebdate': 'on',  # Incluir data hebraica
+				}
+
+				# Adicionar os dados dos eventos ao dicionário `data`
+				for i, event in enumerate(events_data, start=1):
+						data[f'y{i}'] = event['year']
+						data[f'm{i}'] = event['month']
+						data[f'd{i}'] = event['day']
+						data[f't{i}'] = event['type']
+						if 'name' in event:
+								data[f'n{i}'] = event['name']
+
+				response = requests.post(url, headers=headers, data=data)
+				response.raise_for_status()
+				return response.json()
+
+		def register_routes(self, app):
+				# ... (suas rotas existentes) ...
+
+				@app.route('/yahrzeit', methods=['GET', 'POST'])
+				def yahrzeit_dates():
+						yahrzeits = None
+						if request.method == 'POST':
+								events_data = [
+										{'year': int(request.form['y1']), 'month': int(request.form['m1']), 'day': int(request.form['d1']), 'type': request.form['t1'], 'name': request.form.get('n1', '')},
+										# Adicione mais eventos aqui se necessário
+								]
+								try:
+										yahrzeits = self.get_yahrzeits(events_data)
+								except requests.exceptions.RequestException as e:
+										yahrzeits = {'error': f"Erro na requisição: {e}"}
+
+						return render_template('yahrzeit.html', yahrzeits=yahrzeits)

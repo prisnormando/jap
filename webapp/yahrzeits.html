@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+		<title>Datas Yahrzeit</title>
+</head>
+<body>
+		<h1>Datas Yahrzeit</h1>
+
+		<form method="post">
+				<h2>Evento 1:</h2>
+				<label for="y1">Ano:</label> <input type="text" id="y1" name="y1"><br>
+				<label for="m1">Mês:</label> <input type="text" id="m1" name="m1"><br>
+				<label for="d1">Dia:</label> <input type="text" id="d1" name="d1"><br>
+				<label for="t1">Tipo:</label>
+				<select id="t1" name="t1">
+						<option value="Yahrzeit">Yahrzeit</option>
+						<option value="Birthday">Aniversário</option>
+				</select><br>
+				<label for="n1">Nome (opcional):</label> <input type="text" id="n1" name="n1"><br><br>
+
+				<input type="submit" value="Buscar Yahrzeits">
+		</form>
+
+		{% if yahrzeits %}
+				<h2>Resultados:</h2>
+				<pre>{{ yahrzeits | tojson }}</pre>
+		{% endif %}
+</body>
+</html>
