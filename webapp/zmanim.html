@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+		<title>Zmanim (Horários Haláchicos)</title>
+</head>
+<body>
+		<h1>Zmanim (Horários Haláchicos)</h1>
+
+		<form method="post">
+				<label for="date">Data (AAAA-MM-DD):</label>
+				<input type="text" id="date" name="date"><br><br>
+				<label for="geonameid">GeoNames ID (opcional):</label>
+				<input type="text" id="geonameid" name="geonameid" value="3448439"><br><br>
+				<input type="submit" value="Buscar Zmanim">
+		</form>
+
+		{% if zmanim_info %}
+				<h2>Informações de Zmanim:</h2>
+				<ul>
+						{% for zman, time in zmanim_info['times'].items() %}
+								<li>{{ zman }}: {{ time }}</li>
+						{% endfor %}
+				</ul>
+		{% endif %}
+</body>
+</html>

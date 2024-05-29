@@ -179,3 +179,33 @@ class DateConverter:
 										yahrzeits = {'error': f"Erro na requisição: {e}"}
 
 						return render_template('yahrzeit.html', yahrzeits=yahrzeits)
+import requests
+import json
+
+
+class DateConverter:
+		# ... (your existing conversion and API methods) ...
+
+		def get_zmanim(self, date, geonameid="3448439"):
+				url = f"https://www.hebcal.com/zmanim?cfg=json&geonameid={geonameid}&date={date}"
+				response = requests.get(url)
+				response.raise_for_status()
+				data = response.json()
+				return data
+
+		def register_routes(self, app):
+				# ... (your existing routes) ...
+
+				@app.route('/zmanim', methods=['GET', 'POST'])
+				def zmanim_times():
+						zmanim_info = None
+						if request.method == 'POST':
+								date = request.form['date']
+								geonameid = request.form.get('geonameid', "3448439")  # Default for São Paulo
+
+								try:
+										zmanim_info = self.get_zmanim(date, geonameid)
+								except requests.exceptions.RequestException as e:
+										zmanim_info = {'error': f"Erro na requisição: {e}"}
+
+						return render_template('zmanim.html', zmanim_info=zmanim_info)
